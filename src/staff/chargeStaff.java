@@ -1,6 +1,7 @@
 package staff;
 
 import java.sql.*;
+import db.SQLString;
 
 import db.DBINFO;
 
@@ -26,7 +27,10 @@ public class chargeStaff extends Staff {
 			Class.forName(DBINFO.JDBC_DRIVER);
 			conn=DriverManager.getConnection(DBINFO.DB_URL,USER,PASS);
 			stmt=conn.createStatement();
-			String sql="select area,room from house where house_id=\""+houseID+"\"";
+			
+			String[] content= {"area","room"};
+			String sql="select "+SQLString.construct(content)+" from house";
+			
 			ResultSet rs=stmt.executeQuery(sql);			
 			if(rs.next()) {
 				area=rs.getFloat("area");
