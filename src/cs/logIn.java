@@ -2,6 +2,8 @@ package cs;
 
 import java.sql.*;
 
+import db.DBINFO;
+
 public class logIn {
 	static final String USER="root";
 	static final String PASS="niunian052170";
@@ -11,8 +13,8 @@ public class logIn {
 		Statement s=null;
 		
 		try {
-			Class.forName(dbInfo.JDBC_DRIVER);
-			c=DriverManager.getConnection(dbInfo.DB_URL,USER,PASS);
+			Class.forName(DBINFO.JDBC_DRIVER);
+			c=DriverManager.getConnection(DBINFO.DB_URL,USER,PASS);
 			s=c.createStatement();
 			String sql;
 			sql="select pwd from staff where staff_id="+user;

@@ -1,30 +1,23 @@
-package cs;
+package db;
 
 import java.sql.*;
 
-public class Staff {
-	private String staffID;
-	private static final String USER="staff";
-	private static final String PASS="staff";
-	public Staff(String staffID) {
-		this.staffID=staffID;
-	}
-	public float[] charge(String houseID,int water,int electricity) {
-		/* float[0]物业费
-		 * float[1]卫生费 
-		 * float[2]水费
-		 * float[3]电费
+public class STAFFOPERATE {
+	public static float[] operate(String user,String pass,String houseID,int water,int electricity) {
+		/* result[0]物业费
+		 * result[1]卫生费 
+		 * result[2]水费
+		 * result[3]电费
 		 * */
 		float[] result=new float[4];
-		Connection conn=null;
+		Connection conn=null;	
 		Statement stmt=null;
 		float area = 0;
 		int room = 0;
-		float money;
 		
 		try {
-			Class.forName(dbInfo.JDBC_DRIVER);
-			conn=DriverManager.getConnection(dbInfo.DB_URL,USER,PASS);
+			Class.forName(DBINFO.JDBC_DRIVER);
+			conn=DriverManager.getConnection(DBINFO.DB_URL,user,pass);
 			stmt=conn.createStatement();
 			String sql="select area,room from house where house_id=\""+houseID+"\"";
 			ResultSet rs=stmt.executeQuery(sql);			
@@ -66,11 +59,5 @@ public class Staff {
 			}
 		}
 		return result;
-	}
-	
-	public static void main(String[] args) {
-		Staff staff=new Staff("004");
-		for(float f:staff.charge("A1608", 6, 102))
-			System.out.println(f);
 	}
 }
