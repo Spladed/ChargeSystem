@@ -26,7 +26,7 @@ public class Staff {
 			Class.forName(dbInfo.JDBC_DRIVER);
 			conn=DriverManager.getConnection(dbInfo.DB_URL,USER,PASS);
 			stmt=conn.createStatement();
-			String sql="select area,room from house where house_id="+houseID;
+			String sql="select area,room from house where house_id=\""+houseID+"\"";
 			ResultSet rs=stmt.executeQuery(sql);			
 			if(rs.next()) {
 				area=rs.getFloat("area");
@@ -66,5 +66,11 @@ public class Staff {
 			}
 		}
 		return result;
+	}
+	
+	public static void main(String[] args) {
+		Staff staff=new Staff("004");
+		for(float f:staff.charge("A1608", 6, 102))
+			System.out.println(f);
 	}
 }
