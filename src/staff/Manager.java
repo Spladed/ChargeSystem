@@ -22,7 +22,7 @@ public class Manager extends Staff{
 	}
 	
 	//接受一个String，表示要删除的员工的员工号
-	public boolean dropStaff() {
+	public boolean delete() {
 		return true;
 	}
 	
