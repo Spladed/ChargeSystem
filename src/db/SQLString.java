@@ -39,9 +39,10 @@ public class SQLString {
 	public static void main(String[] args) {
 		String[] column= {"staff_id","staff_name","birthday","gender","address","phone","department_id","job","pwd"};
 		String[] content= {"007","Ğ»°²âù","1999-06-02","F","´ºÌï»¨»¨Ó×ÖÉÔ°","123333","003","M","xieanyi"};
-
+		String[] ss= {"*"};
 		System.out.println(insertColumn(column));
 		System.out.println(insertValues(content));
+		System.out.println(construct(ss));
 		
 	}
 }
