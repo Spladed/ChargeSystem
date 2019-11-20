@@ -9,8 +9,8 @@ public class select {
 	
 	//user、pass进行数据库查询时使用的账户和密码
 	//table要查询的表的名字
-	//content要查询的具体内容
-	//selectInfo约束条件，用于构造where语句，第一个元素是列名，第二个元素是具体的内容。不需要限定时传入null
+	//content要查询的具体内容(现在的问题是传入*怎么办)
+	//selectInfo约束条件，用于构造where语句，第一个元素是列名，第二个元素是具体的内容。不需要where语句时传入null
 	public static List<HashMap<String, Object>> selectSet(String user,String pass,String table,String[] content,String[] selectInfo) {
 		Connection conn=null;	
 		Statement stmt=null;
@@ -24,21 +24,30 @@ public class select {
 			
 			if(selectInfo==null || selectInfo.length!=2) {
 				sql="select "+SQLString.construct(content)+" from "+table;
-				System.out.println(sql);
+				//System.out.println(sql);
 			}
 			else {
-				sql="select "+SQLString.construct(content)+" from "+table+" where "+selectInfo[0]+"="+selectInfo[1];
-				System.out.println(sql);
+				sql="select "+SQLString.construct(content)+" from "+table+" where "+selectInfo[0]+"="+"\""+selectInfo[1]+"\"";
+				//System.out.println(sql);
 			}
 			
 			ResultSet rs=stmt.executeQuery(sql);
-			
-			
+						
 			while(rs.next()) {
 				HashMap m=new HashMap<String,Object>();
-				for(int i=0;i<content.length;i++) {
-					m.put(content[i], rs.getString(content[i]));
+				//如果要传入的查询内容为*
+				if(content.length==1 && content[0].equals("*")) {
+					ResultSetMetaData metaData=rs.getMetaData();		//获取列集
+					for(int i=0;i<metaData.getColumnCount();i++) {		//根据列数量循环
+						String str=metaData.getColumnName(i+1);
+						System.out.println(str);
+						m.put(str, rs.getObject(str));	//列的名字、根据列的名字获取值
+					}
 				}
+				else
+					for(int i=0;i<content.length;i++) {
+						m.put(content[i], rs.getObject(content[i]));
+					}
 				result.add(m);
 			}
 			rs.close();
@@ -69,8 +78,15 @@ public class select {
 	}
 	
 	public static void main(String[] args) {
-		String[] content= {"*"};
-		List<HashMap<String,Object>> recieve=selectSet("staff","staff","charge",content,null);
+		String[] content= {"area","room"};
+		String[] selectHouseInfo= {"house_id","A1608"};
+		List<HashMap<String,Object>> recieve=selectSet("staff","staff","house",content,selectHouseInfo);
 		System.out.println(recieve);
+		for(HashMap<String,Object> m:recieve) {
+			for(String key:m.keySet()) {
+				
+				System.out.println(Float.parseFloat((String) m.get(key)));
+			}			
+		}
 	}
 }
