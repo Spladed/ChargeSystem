@@ -11,6 +11,8 @@ public class Manager extends Staff{
 	public Manager(String staffID) {
 		super(staffID);
 	}
+	
+	//判断员工是否是自己所属部门的
 	private boolean confirm(String staff_id) {
 		String thisSelectInfo[]= {"staff_id",this.staffID};
 		String SelectInfo[]= {"staff_id",staff_id};
