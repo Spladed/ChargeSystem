@@ -3,7 +3,7 @@ package db;
 import java.sql.*;
 
 public class update {
-	public static void updateSet(String user,String pass,String table,String[] column,String content[],String sign) {
+	public static void updateSet(String user,String pass,String table,String[] column,String content[],String[] sign) {
 		Connection conn=null;	
 		Statement stmt=null;
 		
@@ -13,7 +13,7 @@ public class update {
 			stmt=conn.createStatement();
 			String sql;
 			for(int i=0;i<column.length;i++) {
-				sql="update "+table+" set "+column[i]+"="+content[i]+" where staff_id="+sign;
+				sql="update "+table+" set "+column[i]+"="+content[i]+" where "+sign[0]+"="+"\""+sign[1]+"\"";
 				stmt.execute(sql);
 			}
 			stmt.close();
@@ -43,6 +43,7 @@ public class update {
 	public static void main(String[] args) {
 		String[] col= {"phone"};
 		String[] content= {"3333333"};
-		updateSet("manager","manager","staff",col,content,"001");
+		String[] sign= {"staff_id","001"};
+		updateSet("manager","manager","staff",col,content,sign);
 	}
 }

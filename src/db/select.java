@@ -131,13 +131,9 @@ public class select {
 	public static void main(String[] args) {
 		String[] content= {"area","room"};
 		String[] selectHouseInfo= {"house_id","A1608"};
-		List<HashMap<String,Object>> recieve=selectSet("staff","staff","house",content,selectHouseInfo);
-		System.out.println(recieve);
+		List<HashMap<String,Object>> recieve=(List<HashMap<String, Object>>) selectSet("staff","staff","house","*",null);
 		for(HashMap<String,Object> m:recieve) {
-			for(String key:m.keySet()) {
-				
-				System.out.println(Float.parseFloat((String) m.get(key)));
-			}			
+			System.out.println(m);		
 		}
 	}
 }
