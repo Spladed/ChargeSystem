@@ -1,8 +1,9 @@
 package cs;
 
 import java.sql.*;
+import java.util.HashMap;
 
-import db.DBINFO;
+import db.*;
 
 public class logIn {
 	static final String USER="root";
@@ -11,41 +12,12 @@ public class logIn {
 	public static boolean in(String user,String pass) {
 		Connection c=null;
 		Statement s=null;
-		
-		try {
-			Class.forName(DBINFO.JDBC_DRIVER);
-			c=DriverManager.getConnection(DBINFO.DB_URL,USER,PASS);
-			s=c.createStatement();
-			String sql;
-			sql="select pwd from staff where staff_id="+user;
-			ResultSet rs=s.executeQuery(sql);
-			if(rs.next())
-				if(rs.getString("pwd").equals(pass))
-					return true;
-			rs.close();
-			s.close();
-			c.close();
-		}
-		catch(SQLException e) {
-			e.printStackTrace();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			try {
-				if(s!=null) s.close();
-			}
-			catch(SQLException e) {
-				e.printStackTrace();
-			}
-			try {
-				if(c!=null) c.close();
-			}
-			catch(SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		String[] content= {"pwd"};
+		String[] selectInfo= {"staff_id",user};
+		HashMap<String,Object> m=select.selectSet(USER, PASS, "staff", content, selectInfo).get(0);
+		String pwd=(String)m.get(content[0]);
+		if(pwd.equals(pass))
+			return true;
 		return false;
 	}
 	
