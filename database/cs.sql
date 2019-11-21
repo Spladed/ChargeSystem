@@ -16,31 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `charge`
---
-
-DROP TABLE IF EXISTS `charge`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `charge` (
-  `property` float DEFAULT NULL,
-  `clean` float DEFAULT NULL,
-  `water` float DEFAULT NULL,
-  `electricity` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `charge`
---
-
-LOCK TABLES `charge` WRITE;
-/*!40000 ALTER TABLE `charge` DISABLE KEYS */;
-INSERT INTO `charge` VALUES (1,10,0.7,0.8);
-/*!40000 ALTER TABLE `charge` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `department`
 --
 
@@ -75,8 +50,10 @@ DROP TABLE IF EXISTS `house`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `house` (
   `house_id` varchar(5) NOT NULL,
-  `area` float DEFAULT NULL,
-  `room` smallint(5) unsigned DEFAULT NULL,
+  `area` double DEFAULT NULL,
+  `room` double DEFAULT NULL,
+  `watercost` double DEFAULT NULL,
+  `electricitycost` double DEFAULT NULL,
   PRIMARY KEY (`house_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -87,7 +64,7 @@ CREATE TABLE `house` (
 
 LOCK TABLES `house` WRITE;
 /*!40000 ALTER TABLE `house` DISABLE KEYS */;
-INSERT INTO `house` VALUES ('A0101',100,4),('A0102',100,4),('A0201',78,4),('A0301',94,4),('A0503',120,4),('A1608',98.6,1),('A2200',102,4),('A2201',102,4);
+INSERT INTO `house` VALUES ('A0101',100,4,6,100),('A0102',100,4,4,60),('A0201',78,4,9,100),('A0301',94,4,8,50),('A0503',120,4,4,70),('A1608',98.5999984741211,1,6,102),('A2200',102,4,5,33),('A2201',102,4,1,10);
 /*!40000 ALTER TABLE `house` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,4 +137,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-19 22:49:48
+-- Dump completed on 2019-11-21 13:56:24

@@ -22,13 +22,11 @@ public class select {
 			conn=DriverManager.getConnection(DBINFO.DB_URL,user,pass);
 			stmt=conn.createStatement();
 			
-			if(selectInfo==null || selectInfo.length!=2) {
+			if(selectInfo==null) {
 				sql="select "+SQLString.construct(content)+" from "+table;
-				//System.out.println(sql);
 			}
 			else {
 				sql="select "+SQLString.construct(content)+" from "+table+" where "+selectInfo[0]+"="+"\""+selectInfo[1]+"\"";
-				//System.out.println(sql);
 			}
 			
 			ResultSet rs=stmt.executeQuery(sql);
@@ -40,7 +38,6 @@ public class select {
 					ResultSetMetaData metaData=rs.getMetaData();		//获取列集
 					for(int i=0;i<metaData.getColumnCount();i++) {		//根据列数量循环
 						String str=metaData.getColumnName(i+1);
-						System.out.println(str);
 						m.put(str, rs.getObject(str));	//列的名字、根据列的名字获取值
 					}
 				}
