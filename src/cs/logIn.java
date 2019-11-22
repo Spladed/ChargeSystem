@@ -1,8 +1,5 @@
 package cs;
 
-import java.sql.*;
-import java.util.HashMap;
-
 import db.*;
 
 public class logIn {
@@ -10,13 +7,9 @@ public class logIn {
 	static final String PASS="niunian052170";
 	
 	public static boolean in(String user,String pass) {
-		Connection c=null;
-		Statement s=null;
-		String[] content= {"pwd"};
 		String[] selectInfo= {"staff_id",user};
-		HashMap<String,Object> m=select.selectSet(USER, PASS, "staff", content, selectInfo).get(0);
-		String pwd=(String)m.get(content[0]);
-		if(pwd.equals(pass))
+		String m=(String)select.selectSet(USER, PASS, "staff", "pwd", selectInfo);
+		if(m.equals(pass))
 			return true;
 		return false;
 	}
