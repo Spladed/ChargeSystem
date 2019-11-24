@@ -1,6 +1,9 @@
 package cs;
 
 import javax.swing.*;
+
+import db.select;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,8 +33,13 @@ public class Display {
 			public void actionPerformed(ActionEvent e) {
 				String user=jtf.getText();
 				String pass=new String(jpf.getPassword());
-				if(logIn.in(user, pass))
-					System.out.println("success");
+				if(logIn.in(user, pass)) {
+					switch(logIn.jobInfo(user)) {
+						case 'M'://启动Manager的页面
+						case 'S'://启动chargeStaff的界面
+						default://启动登陆失败的界面
+					}
+				}
 				else
 					System.out.println("failed");
 			}
