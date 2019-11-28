@@ -9,6 +9,8 @@ public class logIn {
 	public static boolean in(String user,String pass) {
 		String[] selectInfo= {"staff_id",user};
 		String m=(String)select.selectSet(USER, PASS, "staff", "pwd", selectInfo);
+		if(m==null)
+			return false;
 		if(m.equals(pass))
 			return true;
 		return false;

@@ -1,9 +1,6 @@
 package cs;
 
 import javax.swing.*;
-
-import db.select;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +10,7 @@ public class Display {
 		JFrame jf=new JFrame("登录");
 		
 		jf.setSize(300, 300);
+		jf.setResizable(false);
 	    jf.setLocationRelativeTo(null);
 	    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
@@ -34,14 +32,15 @@ public class Display {
 				String user=jtf.getText();
 				String pass=new String(jpf.getPassword());
 				if(logIn.in(user, pass)) {
-					switch(logIn.jobInfo(user)) {
-						case 'M'://启动Manager的页面
-						case 'S'://启动chargeStaff的界面
-						default://启动登陆失败的界面
-					}
+
+					if(judgingPosition.judge(user).equals("M"))
+						System.out.println("Manager");
+					else if(judgingPosition.judge(user).equals("S"))
+						System.out.println("Staff");
+					jf.dispose();
 				}
 				else
-					System.out.println("failed");
+					failedToLogin.showFailedWindow(jf);
 			}
 		});
 		panel3.add(login);
