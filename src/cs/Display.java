@@ -10,6 +10,7 @@ public class Display {
 		JFrame jf=new JFrame("µÇÂ¼");
 		
 		jf.setSize(300, 300);
+		jf.setResizable(false);
 	    jf.setLocationRelativeTo(null);
 	    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
@@ -30,10 +31,15 @@ public class Display {
 			public void actionPerformed(ActionEvent e) {
 				String user=jtf.getText();
 				String pass=new String(jpf.getPassword());
-				if(logIn.in(user, pass))
-					System.out.println("success");
+				if(logIn.in(user, pass)) {
+					if(judgingPosition.judge(user).equals("M"))
+						System.out.println("Manager");
+					else if(judgingPosition.judge(user).equals("S"))
+						System.out.println("Staff");
+					jf.dispose();
+				}
 				else
-					System.out.println("failed");
+					failedToLogin.showFailedWindow(jf);
 			}
 		});
 		panel3.add(login);
