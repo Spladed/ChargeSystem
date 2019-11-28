@@ -16,13 +16,13 @@ public class chargeStaff extends Staff {
 	
 	//获取收费金额
 	private String[] charge(String houseID) {		
-		//result[0]物业费、result[1]卫生费、result[2]水费、result[3]电费
+		//result[0]物业费、result[1]卫生费
 
 		double[] recieve=new double[4];
 		String[] result=null;
 		
-		String[] content= {"area","room","watercost","electricitycost"};	//house表要查询的内容
-		String[] selectHouseInfo= {"house_id",houseID};
+		String[] content= {"area","room"};	//house表要查询的内容
+		String[] selectHouseInfo= {"house_id","\""+houseID+"\""};
 		
 		//chargeInfo为收费信息，包含四项收费内容，一共一个HashMap
 		HashMap<String,Object> chargeInfo=select.selectSet(USER, PASS, "house", content, selectHouseInfo).get(0);
@@ -51,18 +51,11 @@ public class chargeStaff extends Staff {
 	public String getUser() {return USER;}
 	public String getPass() {return PASS;}
 	
-	
-	
 	public static void main(String[] args) {
-//		chargeStaff staff=new chargeStaff("004");
-//		for(double f:staff.charge("A1608"))
-//			System.out.printf("%.2f\n",f);
-//		long l=System.currentTimeMillis();
-//		Date date=new Date(l);
-//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//		String nyr = dateFormat.format(date);
-//		System.out.println(nyr);
-		double d=0.1111111111;
-		System.out.println(String.format("%.2f",d));
+		long l=System.currentTimeMillis();
+		Date date=new Date(l);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
+		String time = dateFormat.format(date);
+		System.out.println(time);
 	}
 }

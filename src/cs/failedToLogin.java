@@ -11,10 +11,12 @@ public class failedToLogin {
 		newJFrame.setLocationRelativeTo(relativeWindow);
 		newJFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		newJFrame.setResizable(false);
+		
 		JPanel panel=new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JLabel label=new JLabel("‘±π§∫≈ªÚ√‹¬Î¥ÌŒÛ£°");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setVerticalAlignment(SwingConstants.CENTER);
+		
 		panel.add(label);
 		newJFrame.setContentPane(panel);
 		newJFrame.setVisible(true);

@@ -34,7 +34,6 @@ public class Display {
 				String user=jtf.getText();
 				String pass=new String(jpf.getPassword());
 				if(logIn.in(user, pass)) {
-
 					if(judgingPosition.judge(user).equals("M"))
 						managerDisplay.Main.Display(new Manager(user));
 					else if(judgingPosition.judge(user).equals("S"))

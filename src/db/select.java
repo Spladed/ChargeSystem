@@ -30,7 +30,7 @@ public class select {
 				sql="select "+content+" from "+table;
 			}
 			else {
-				sql="select "+content+" from "+table+" where "+selectInfo[0]+"="+"\""+selectInfo[1]+"\"";
+				sql="select "+content+" from "+table+" where "+selectInfo[0]+"="+selectInfo[1];
 			}
 			
 			ResultSet rs=stmt.executeQuery(sql);
@@ -79,7 +79,7 @@ public class select {
 				sql="select "+SQLString.construct(content)+" from "+table;
 			}
 			else {
-				sql="select "+SQLString.construct(content)+" from "+table+" where "+selectInfo[0]+"="+"\""+selectInfo[1]+"\"";
+				sql="select "+SQLString.construct(content)+" from "+table+" where "+selectInfo[0]+"="+selectInfo[1];
 			}
 			
 			ResultSet rs=stmt.executeQuery(sql);
