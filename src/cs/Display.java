@@ -5,9 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import staff.*;
+
 public class Display {
 	public static void main(String[] args) {
-		JFrame jf=new JFrame("µÇÂ¼");
+		JFrame jf=new JFrame("ÂµÃ‡Ã‚Â¼");
 		
 		jf.setSize(300, 300);
 		jf.setResizable(false);
@@ -16,16 +18,16 @@ public class Display {
 		
 		JPanel panel1=new JPanel();
 		JTextField jtf=new JTextField(20);	
-		panel1.add(new JLabel("Ô±¹¤ºÅ"));
+		panel1.add(new JLabel("Ã”Â±Â¹Â¤ÂºÃ…"));
 		panel1.add(jtf);
 		
 		JPanel panel2=new JPanel();
 		JPasswordField jpf=new JPasswordField(20);
-		panel2.add(new JLabel("ÃÜ    Âë"));
+		panel2.add(new JLabel("ÃƒÃœ    Ã‚Ã«"));
 		panel2.add(jpf);
 		
 		JPanel panel3=new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JButton login=new JButton("µÇÂ¼");
+		JButton login=new JButton("ÂµÃ‡Ã‚Â¼");
 		login.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -34,9 +36,9 @@ public class Display {
 				if(logIn.in(user, pass)) {
 
 					if(judgingPosition.judge(user).equals("M"))
-						System.out.println("Manager");
+						managerDisplay.Main.Display(new Manager(user));
 					else if(judgingPosition.judge(user).equals("S"))
-						System.out.println("Staff");
+						chargeStaffDisplay.Main.Display(new chargeStraff(user));
 					jf.dispose();
 				}
 				else
