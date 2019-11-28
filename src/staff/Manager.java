@@ -51,4 +51,12 @@ public class Manager extends Staff{
 		return false;
 	}
 	
+	public String getDepartmentID() {
+		String[] selectInfo= {"staff_id",staffID}; 
+		String departmentID=(String)select.selectSet(USER, PASS, "staff", "department_id", selectInfo);
+		return departmentID;
+	}
+	
+	public String getUser() {return USER;}
+	public String getPass() {return PASS;}
 }

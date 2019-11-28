@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import staff.*;
+
 public class Display {
 	public static void main(String[] args) {
 		JFrame jf=new JFrame("µÇÂ¼");
@@ -33,9 +35,11 @@ public class Display {
 				String pass=new String(jpf.getPassword());
 				if(logIn.in(user, pass)) {
 					if(judgingPosition.judge(user).equals("M"))
-						System.out.println("Manager");
+						managerDisplay.Main.Display(new Manager(user));
+						//System.out.println("Manager");
 					else if(judgingPosition.judge(user).equals("S"))
-						System.out.println("Staff");
+						chargeStaffDisplay.Main.Display(new chargeStaff(user));
+						//System.out.println("Staff");
 					jf.dispose();
 				}
 				else

@@ -12,7 +12,7 @@ public class chargeStaff extends Staff {
 		super(staffID);
 	}
 	
-	//重新进行设计，charge不再需要传入用水和用电量。业主的用水和用电用另一张表维护。这样
+	//用户的用水量和用电量
 	public double[] charge(String houseID) {		
 		/* result[0]物业费
 		 * result[1]卫生费 
