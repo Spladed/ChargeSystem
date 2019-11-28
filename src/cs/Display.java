@@ -34,12 +34,11 @@ public class Display {
 				String user=jtf.getText();
 				String pass=new String(jpf.getPassword());
 				if(logIn.in(user, pass)) {
+
 					if(judgingPosition.judge(user).equals("M"))
 						managerDisplay.Main.Display(new Manager(user));
-						//System.out.println("Manager");
 					else if(judgingPosition.judge(user).equals("S"))
 						chargeStaffDisplay.Main.Display(new chargeStaff(user));
-						//System.out.println("Staff");
 					jf.dispose();
 				}
 				else
