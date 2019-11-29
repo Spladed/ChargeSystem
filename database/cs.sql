@@ -16,6 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `bill`
+--
+
+DROP TABLE IF EXISTS `bill`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `bill` (
+  `property` varchar(10) DEFAULT NULL,
+  `clean` varchar(10) DEFAULT NULL,
+  `water` varchar(10) DEFAULT NULL,
+  `electricity` varchar(10) DEFAULT NULL,
+  `time_stamp` date DEFAULT NULL,
+  `house_id` varchar(20) DEFAULT NULL,
+  `state` enum('unpaid','paid') DEFAULT NULL,
+  KEY `house_id` (`house_id`),
+  CONSTRAINT `bill_ibfk_1` FOREIGN KEY (`house_id`) REFERENCES `house` (`house_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bill`
+--
+
+LOCK TABLES `bill` WRITE;
+/*!40000 ALTER TABLE `bill` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bill` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `department`
 --
 
@@ -52,8 +81,7 @@ CREATE TABLE `house` (
   `house_id` varchar(5) NOT NULL,
   `area` double DEFAULT NULL,
   `room` double DEFAULT NULL,
-  `watercost` double DEFAULT NULL,
-  `electricitycost` double DEFAULT NULL,
+  `owner_id` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`house_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -64,7 +92,7 @@ CREATE TABLE `house` (
 
 LOCK TABLES `house` WRITE;
 /*!40000 ALTER TABLE `house` DISABLE KEYS */;
-INSERT INTO `house` VALUES ('A0101',100,4,6,100),('A0102',100,4,4,60),('A0201',78,4,9,100),('A0301',94,4,8,50),('A0503',120,4,4,70),('A1608',98.5999984741211,1,6,102),('A2200',102,4,5,33),('A2201',102,4,1,10);
+INSERT INTO `house` VALUES ('A0101',100,4,'00001'),('A0102',100,4,'00002'),('A0201',78,4,'00003'),('A0301',94,4,'00004'),('A0503',120,4,'00005'),('A1608',98.6,1,'00006'),('A2200',102,4,'00007'),('A2201',102,4,'00007');
 /*!40000 ALTER TABLE `house` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -76,12 +104,11 @@ DROP TABLE IF EXISTS `house_owner`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `house_owner` (
-  `owner_id` varchar(5) DEFAULT NULL,
+  `owner_id` varchar(5) NOT NULL,
   `owner_name` varchar(20) DEFAULT NULL,
-  `house_id` varchar(5) NOT NULL,
   `work_place` varchar(100) DEFAULT NULL,
   `phone_number` varchar(11) DEFAULT NULL,
-  PRIMARY KEY (`house_id`)
+  PRIMARY KEY (`owner_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -91,7 +118,7 @@ CREATE TABLE `house_owner` (
 
 LOCK TABLES `house_owner` WRITE;
 /*!40000 ALTER TABLE `house_owner` DISABLE KEYS */;
-INSERT INTO `house_owner` VALUES ('00001','张全蛋','A0101','富士康流水线1','13811110000'),('00002','田琒','A0102','富士康流水线1','13811110001'),('00004','姜超','A0201','富士康流水线3','13811110003'),('00005','潘濮','A0301','富士康流水线4','13811110004'),('00003','吴龄','A0503','富士康流水线2','13811110002'),('00006','李斌','A1608','富士康流水线5','13811110005'),('00007','文晷','B2200','富士康流水线6','13811110006'),('00007','文晷','B2201','富士康流水线6','13811110007');
+INSERT INTO `house_owner` VALUES ('00001','张全蛋','富士康流水线1','13811110000'),('00002','田琒','富士康流水线1','13811110001'),('00003','吴龄','富士康流水线2','13811110002'),('00004','姜超','富士康流水线3','13811110003'),('00005','潘濮','富士康流水线4','13811110004'),('00006','李斌','富士康流水线5','13811110005'),('00007','文晷','富士康流水线6','13811110007');
 /*!40000 ALTER TABLE `house_owner` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,6 +141,7 @@ CREATE TABLE `staff` (
   `pwd` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`staff_id`),
   KEY `department_id` (`department_id`),
+  CONSTRAINT `fk_dp_id` FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`),
   CONSTRAINT `staff_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -137,4 +165,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-21 13:56:24
+-- Dump completed on 2019-11-29 22:00:44
