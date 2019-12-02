@@ -9,7 +9,7 @@ public class failedToLogin {
 		JFrame newJFrame=new JFrame("µÇÂ½Ê§°Ü");
 		newJFrame.setSize(100,100);
 		newJFrame.setLocationRelativeTo(relativeWindow);
-		newJFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		newJFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		newJFrame.setResizable(false);
 		
 		JPanel panel=new JPanel(new FlowLayout(FlowLayout.CENTER));

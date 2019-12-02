@@ -7,7 +7,6 @@ import cs.Display;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
@@ -66,7 +65,7 @@ public class Main {
 	    	btn.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					
+					charge.display(houseID,ownerName,cs);
 				}
 			});
 	    	rightTopButtonPanel.add(btn);
