@@ -23,10 +23,10 @@ public class Main {
 		
 		JFrame jf=new JFrame("员工管理系统");
 		jf.setSize(1000, 1000);
-		//jf.setResizable(false);
+		jf.setResizable(false);
 	    jf.setLocationRelativeTo(null);
 	    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		
+	    
 	    Box head=Box.createHorizontalBox();
 	    {   
 	    	head.add(myLabel.label("员工号"));
