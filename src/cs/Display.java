@@ -14,7 +14,7 @@ public class Display {
 		jf.setSize(300, 300);
 		jf.setResizable(false);
 	    jf.setLocationRelativeTo(null);
-	    jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	    jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel panel1=new JPanel();
 		JTextField jtf=new JTextField(20);	

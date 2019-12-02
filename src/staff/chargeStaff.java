@@ -54,7 +54,7 @@ public class chargeStaff extends Staff {
 	public static void main(String[] args) {
 		long l=System.currentTimeMillis();
 		Date date=new Date(l);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String time = dateFormat.format(date);
 		System.out.println(time);
 	}
