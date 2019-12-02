@@ -29,7 +29,7 @@ CREATE TABLE `bill` (
   `electricity` varchar(10) DEFAULT NULL,
   `time_stamp` date DEFAULT NULL,
   `house_id` varchar(20) DEFAULT NULL,
-  `state` enum('unpaid','paid') DEFAULT NULL,
+  `state` enum('已缴','未缴') DEFAULT NULL,
   KEY `house_id` (`house_id`),
   CONSTRAINT `bill_ibfk_1` FOREIGN KEY (`house_id`) REFERENCES `house` (`house_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -41,7 +41,33 @@ CREATE TABLE `bill` (
 
 LOCK TABLES `bill` WRITE;
 /*!40000 ALTER TABLE `bill` DISABLE KEYS */;
+INSERT INTO `bill` VALUES ('100','40','4.2','81.6','2019-11-01','A0101','未缴'),('100','40','4.9','80','2019-10-01','A0101','已缴'),('100','40','2.1','87.6','2019-09-01','A0101','已缴'),('100','40','5.6','71.8','2019-08-01','A0101','已缴'),('100','40','6.3','100','2019-07-01','A0101','已缴'),('100','40','3.5','68.5','2019-06-01','A0101','已缴');
 /*!40000 ALTER TABLE `bill` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `charge`
+--
+
+DROP TABLE IF EXISTS `charge`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `charge` (
+  `property` float DEFAULT NULL,
+  `clean` float DEFAULT NULL,
+  `water` float DEFAULT NULL,
+  `electricity` float DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `charge`
+--
+
+LOCK TABLES `charge` WRITE;
+/*!40000 ALTER TABLE `charge` DISABLE KEYS */;
+INSERT INTO `charge` VALUES (1,10,0.7,0.8);
+/*!40000 ALTER TABLE `charge` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -165,4 +191,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-29 22:00:44
+-- Dump completed on 2019-12-02 20:21:51
