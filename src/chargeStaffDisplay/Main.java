@@ -20,9 +20,7 @@ public class Main {
 	public static void Display(chargeStaff cs) {
 		String user=cs.getUser();
 		String pass=cs.getPass();
-		
-		
-				
+					
 		//房屋信息要查询的内容
 		String[] houseSelectContent= {"house_id","owner_name"};		
 		//房屋信息的查询约束
@@ -50,8 +48,9 @@ public class Main {
 	    //面板（rightMiddlePanel）里放了一个滚动面板（scrollPane），滚动面板里放着表格
 	    //流式布局面板（rightBottomPanel）是右对齐，里面放了一个Button
 	    Box rightBox=Box.createVerticalBox();	    
-	    //上方左侧的当前住户显示
+	    //上方左侧的当前住户显示容器面板
 	    Box rightTopPanel=Box.createHorizontalBox();
+	    //总体右侧上方的左侧信息容器面板，左对齐
 	    JPanel rightTopLabelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
 	    {
 	    	rightTopLabelPanel.add(myLabel.normalLabel("当前房号："));
@@ -59,7 +58,7 @@ public class Main {
 	    	rightTopLabelPanel.add(myLabel.normalLabel("业主："));
 	    	rightTopLabelPanel.add(myLabel.normalLabel(ownerName));
 	    }
-	    //上方右侧的按钮
+	    //总体右侧上方的右侧按钮信息容器面板，右对齐
 	    JPanel rightTopButtonPanel=new JPanel(new FlowLayout(FlowLayout.RIGHT));
 	    {
 	    	JButton btn=myButton.normalButton("收费");
@@ -76,18 +75,17 @@ public class Main {
 	    rightTopPanel.add(rightTopButtonPanel);
 	    rightTopPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 	    
-	    //右侧中间的费用信息的表单	    
+	    //右侧中间的费用信息的表单容器面板
+	    JPanel rightMiddlePanel=new JPanel();
 	    String[] columnNames= {"日期","物业费","卫生费","水费","电费","状态"};	    
 	    List<HashMap<String,Object>> billInfo=select.selectSet(user, pass, "bill", billSelectContent, billSelectInfo);
 	    JTable table=myTable.normalTable(billInfo, columnNames);
 	    table.setPreferredScrollableViewportSize(new Dimension(350, 300));
-	    JScrollPane scrollPane = new JScrollPane(table);	       
-	    //右侧中间的容器面板
-	    JPanel rightMiddlePanel=new JPanel();
+	    JScrollPane scrollPane = new JScrollPane(table);	       	    
 	    rightMiddlePanel.setBorder(BorderFactory.createTitledBorder("费用明细"));
 	    rightMiddlePanel.add(scrollPane);
-
 	    
+	    //右侧底部的按钮容器面板，右对齐
 	    //右侧底部的刷新按钮
 	    JPanel rightBottomPanel=new JPanel(new FlowLayout(FlowLayout.RIGHT));	    
 	    JButton refresh=new JButton("刷新");
@@ -104,6 +102,7 @@ public class Main {
 			    rightMiddlePanel.updateUI();
 			}
 		});
+	    //底部右侧的退出登录按钮
 	    JButton quit=new JButton("退出登录");
 	    quit.addActionListener(new ActionListener() {		
 			@Override
@@ -118,8 +117,7 @@ public class Main {
 	    rightBox.add(rightTopPanel);
 	    rightBox.add(rightMiddlePanel);
 	    rightBox.add(rightBottomPanel);
-	    
-	    	    
+	    	    	    
 	    //左侧房号、业主
 	    //JScrollPane里套一个Box，Box里套多个FlowLayout的Panel，Panel里套一个Button，一个Label
 	    Box leftBox=Box.createVerticalBox();
@@ -132,6 +130,7 @@ public class Main {
 	    leftBox.add(leftTopPanel);
 	    for(HashMap<String,Object> m:houseInfo) {
 	    	JPanel containerPanel=new JPanel(new FlowLayout());
+	    	//该部分代码块用于生成房号（按钮类型）和业主名（标签类型）
 	    	{
 	    		//Button是房号，Label是业主
 	    		JButton btn=myButton.normalButton((String)m.get(houseSelectContent[0]));
@@ -142,24 +141,25 @@ public class Main {
 					public void actionPerformed(ActionEvent e) {
 						houseID=btn.getText();
 	    				ownerName=label.getText();
-						//右侧上方的业主信息显示重绘
-						rightTopLabelPanel.removeAll();
+	    				//移除现有的组件
+						rightTopLabelPanel.removeAll();		
+						//添加新的组件
 						rightTopLabelPanel.add(myLabel.normalLabel("当前房号："));
 						rightTopLabelPanel.add(myLabel.normalLabel(houseID));
 						rightTopLabelPanel.add(myLabel.normalLabel("业主："));
 						rightTopLabelPanel.add(myLabel.normalLabel(ownerName));
-				    	//右侧中间的收费信息显示重绘
-				    	rightMiddlePanel.removeAll();
+						//移除现有组件
+				    	rightMiddlePanel.removeAll();		
+				    	//添加新的组件
 				    	String[] selectInfo= {"house_id","\""+btn.getText()+"\""};
 				    	List<HashMap<String,Object>> currentBill=select.selectSet(user, pass, "bill", billSelectContent, selectInfo);				    	
 				    	JTable newTable=myTable.normalTable(currentBill, columnNames);
 				    	newTable.setPreferredScrollableViewportSize(new Dimension(350,250));
 				    	JScrollPane newScrollPane=new JScrollPane(newTable);
 				    	rightMiddlePanel.add(newScrollPane);
-					    
+					    //重绘界面
 				    	rightTopLabelPanel.updateUI();
-					    rightMiddlePanel.updateUI();
-					    
+					    rightMiddlePanel.updateUI();					    
 					}
 				});	    		
 	    		containerPanel.add(btn);
