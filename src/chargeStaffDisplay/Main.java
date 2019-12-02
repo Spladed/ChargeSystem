@@ -51,14 +51,14 @@ public class Main {
 	    Box rightTopPanel=Box.createHorizontalBox();
 	    JPanel rightTopLabelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
 	    {
-	    	rightTopLabelPanel.add(new JLabel("当前房号："));
-	    	rightTopLabelPanel.add(myLabel.Label(houseID));
-	    	rightTopLabelPanel.add(myLabel.Label("业主："));
-	    	rightTopLabelPanel.add(myLabel.Label(ownerName));
+	    	rightTopLabelPanel.add(myLabel.normalLabel("当前房号："));
+	    	rightTopLabelPanel.add(myLabel.normalLabel(houseID));
+	    	rightTopLabelPanel.add(myLabel.normalLabel("业主："));
+	    	rightTopLabelPanel.add(myLabel.normalLabel(ownerName));
 	    }
 	    JPanel rightTopButtonPanel=new JPanel(new FlowLayout(FlowLayout.RIGHT));
 	    {
-	    	JButton btn=myButton.Button("收费");
+	    	JButton btn=myButton.normalButton("收费");
 	    	//添加事件点击事件，点击后打开收费界面
 	    	btn.addActionListener(new ActionListener() {				
 				@Override
@@ -114,17 +114,17 @@ public class Main {
 	    Box leftBox=Box.createVerticalBox();
 	    JPanel leftTopPanel=new JPanel(new FlowLayout());
 	    {
-	    	leftTopPanel.add(new JLabel("房号"));
+	    	leftTopPanel.add(myLabel.normalLabel("房号"));
 	 	    leftTopPanel.add(new JLabel("    "));
-	 	    leftTopPanel.add(new JLabel("业主"));
+	 	    leftTopPanel.add(myLabel.normalLabel("业主"));
 	    }	   
 	    leftBox.add(leftTopPanel);
 	    for(HashMap<String,Object> m:houseInfo) {
 	    	JPanel containerPanel=new JPanel(new FlowLayout());
 	    	{
 	    		//Button是房号，Label是业主
-	    		JButton btn=myButton.Button((String)m.get(houseSelectContent[0]));
-	    		JLabel label=myLabel.Label((String)m.get(houseSelectContent[1]));
+	    		JButton btn=myButton.normalButton((String)m.get(houseSelectContent[0]));
+	    		JLabel label=myLabel.normalLabel((String)m.get(houseSelectContent[1]));
 	    		//添加按钮的点击事件监听器,使点击后houseID变成按钮显示的ID,ownerName变成label显示的名字，并重新绘制屏幕
 	    		btn.addActionListener(new ActionListener() {					
 					@Override
@@ -132,27 +132,16 @@ public class Main {
 						//右侧上方的业主信息显示重绘
 						rightTopLabelPanel.removeAll();						
 						rightTopLabelPanel.add(new JLabel("当前房号："));
-				    	rightTopLabelPanel.add(myLabel.Label(btn.getText()));
-				    	rightTopLabelPanel.add(myLabel.Label("业主："));
-				    	rightTopLabelPanel.add(myLabel.Label(label.getText()));
+				    	rightTopLabelPanel.add(myLabel.normalLabel(btn.getText()));
+				    	rightTopLabelPanel.add(myLabel.normalLabel("业主："));
+				    	rightTopLabelPanel.add(myLabel.normalLabel(label.getText()));
 				    	//右侧中间的收费信息显示重绘
-				    	scrollPane.removeAll();
-				    	String[] replaceColumnNames= {"日期","物业费","卫生费","水费","电费","状态"};
-				    	String[] replaceContent= {"time_stamp","property","clean","water","electricity","state"};
-				    	String[] replaceSelectInfo= {"house_id","\""+btn.getText()+"\""};
-					    List<HashMap<String,Object>> replace=select.selectSet(user, pass, "bill", replaceContent, replaceSelectInfo);
-					    Object[][] replaceRowData=new Object[replace.size()][6];
-					    for(int i=0;i<billInfo.size();i++) {
-					    	HashMap<String,Object> m=replace.get(i);
-					    	for(int j=0;j<6;j++) {
-					    		rowData[i][j]=m.get(billSelectContent[i]);
-					    	}
-					    }
-					    JTable replaceTable=new JTable(replaceRowData,replaceColumnNames);
-					    replaceTable.setPreferredScrollableViewportSize(new Dimension(350, 250));
-					    scrollPane.add(replaceTable);
+				    	rightMiddlePanel.removeAll();
+				    	
+				    	
 					    rightTopLabelPanel.updateUI();
-					    rightMiddlePanel.updateUI();
+					    System.out.println("重绘完成");
+					    
 					}
 				});	    		
 	    		containerPanel.add(btn);
