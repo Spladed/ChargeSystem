@@ -15,25 +15,22 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 
 import staff.chargeStaff;
 
 public class charge {
-	private String toChinese(String str) {
-		
+	private static String toChinese(String str) {
+		return null;
 	}
 	
 	public static void display(String houseID,String ownerName,chargeStaff cs) {
 		JFrame jf = new JFrame("测试窗口");
         jf.setSize(520, 520);
         jf.setLocationRelativeTo(null);
-        jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         // 创建内容面板，指定布局为 null，则使用绝对布局
         JPanel panel = new JPanel(null);
@@ -137,14 +134,8 @@ public class charge {
 					}
 				}
 				if(table.getValueAt(2, 3).getClass().getName().equals("java.lang.Double") && table.getValueAt(3, 3).getClass().getName().equals("java.lang.Double")) {
-//					insidePanel.remove(label7);
-//					JLabel newLabel7=new JLabel(""+((Double)table.getValueAt(0, 3)+(Double)table.getValueAt(1, 3)+(Double)table.getValueAt(2, 3)+(Double)table.getValueAt(3, 3)),SwingConstants.CENTER);
-//			        label7.setSize(112, 50);
-//			        label7.setBorder(BorderFactory.createMatteBorder(0,0,1,1,Color.GRAY));
-//			        label7.setLocation(341, 274);
-//			        insidePanel.add(newLabel7);
 					label7.setText(""+((Double)table.getValueAt(0, 3)+(Double)table.getValueAt(1, 3)+(Double)table.getValueAt(2, 3)+(Double)table.getValueAt(3, 3)));
-					
+					label6.setText(toChinese(label7.getText()));
 			        insidePanel.updateUI();
 				}
 			}
