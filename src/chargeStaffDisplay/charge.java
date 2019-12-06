@@ -1,12 +1,23 @@
 package chargeStaffDisplay;
 
+import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,12 +30,13 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
+import db.insert;
 import staff.chargeStaff;
 
+
+//收费界面
 public class charge {
-	private static String toChinese(String str) {
-		return null;
-	}
+	private static boolean isInsert=false;
 	
 	public static void display(String houseID,String ownerName,chargeStaff cs) {
 		JFrame jf = new JFrame("测试窗口");
@@ -115,27 +127,31 @@ public class charge {
 					}
 					//遍历每一个修改的行，数量更改后同时更新金额
 					for(int row=firstRow;row<=lastRow;row++) {
-						Object numberObj=tableModel.getValueAt(row, 2);
-						
+						Object numberObj=tableModel.getValueAt(row, 2);						
 						double number=0;
+						double money=0;
 						try {
 							number=Double.parseDouble(""+numberObj);
 						}
 						catch(Exception ex) {
 							ex.printStackTrace();
-						}
-						double money=0;
+						}						
 						if(row==2)
 							money=number*0.7;
 						else if(row==3)
 							money=number*0.8;
 						//修改金额的数据
-						tableModel.setValueAt(money, row, 3);						
+						tableModel.setValueAt(reservedDigits.getDoubleNumber(money), row, 3);						
 					}
 				}
 				if(table.getValueAt(2, 3).getClass().getName().equals("java.lang.Double") && table.getValueAt(3, 3).getClass().getName().equals("java.lang.Double")) {
-					label7.setText(""+((Double)table.getValueAt(0, 3)+(Double)table.getValueAt(1, 3)+(Double)table.getValueAt(2, 3)+(Double)table.getValueAt(3, 3)));
-					label6.setText(toChinese(label7.getText()));
+					double totalMoney=(Double)table.getValueAt(0, 3)+(Double)table.getValueAt(1, 3)+(Double)table.getValueAt(2, 3)+(Double)table.getValueAt(3, 3);
+					//限制小数后1位
+					NumberFormat format = NumberFormat.getNumberInstance() ;
+				    format.setMaximumFractionDigits(1);
+				    String result = format.format(totalMoney) ;					
+					label7.setText(result);
+					label6.setText(toChinese.getNumber(result));
 			        insidePanel.updateUI();
 				}
 			}
@@ -155,7 +171,15 @@ public class charge {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				String property=table.getValueAt(0, 3)+"";
+				String clean=table.getValueAt(1, 3)+"";
+				String water=table.getValueAt(2, 3)+"";
+				String electricity=table.getValueAt(3, 3)+"";
+				String state="未缴";
+				String[] column= {"property","clean","water","electricity","time_stamp","house_id","state","staff_id"};
+				String[] content= {property,clean,water,electricity,time,houseID,state,cs.getID()};
+				insert.insertSet(cs.getUser(), cs.getPass(), "bill", column, content);
+				isInsert=true;
 			}
 		});
         panel.add(btn1);
@@ -167,28 +191,43 @@ public class charge {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				if(isInsert) {
+					// 获取屏幕尺寸
+			        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+			        // 创建需要截取的矩形区域
+			        Rectangle rect = new Rectangle(0, 0, screenSize.width, screenSize.height);
+
+			        // 截屏操作
+			        BufferedImage bufImage = null;
+					try {
+						bufImage = new Robot().createScreenCapture(rect);
+					} catch (AWTException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					String imageName=houseID+time;
+
+			        // 保存截取的图片
+			        try {
+						ImageIO.write(bufImage, "PNG", new File(imageName+".png"));
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
 			}
-		});
+        });
+			
         panel.add(btn2);
-        
-        
 
         // 显示窗口
         jf.setContentPane(panel);
         jf.setVisible(true);
 
-        /*
-                *  也可以在 jf.setVisible(true) 之后添加按钮
-         *
-         * PS_01: jf.setVisible(true) 之后，内容面板才有宽高;
-         * PS_02: 使用其他布局时, jf.setVisible(true) 之后添加的组件, 也会被当做是绝对布局来布置该组件（即需要手动指定坐标和宽高）;
-         * PS_03: 使用其他布局时, jf.setVisible(true) 之前添加的组件, 如果在 jf.setVisible(true) 之后手动设置该组件的坐标和宽高,
-         *	 会将该组件当做绝对布局来对待（即设置坐标和宽高会生效）。
-         */
 	}
 
 	public static void main(String[] args) {
-		display("A0101","sss",new chargeStaff("001"));
+		
 	}
 }

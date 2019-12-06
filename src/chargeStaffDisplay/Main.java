@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.*;
 
+
+//主显示界面
 public class Main {	
 	private static String houseID=null;
 	private static String ownerName=null;

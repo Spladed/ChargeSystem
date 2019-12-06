@@ -28,16 +28,6 @@ public class chargeStaff extends Staff {
 		return recieve;
 	}
 	
-//	private String[] toString(double[] recieve) {		
-//		//result[0]物业费、result[1]卫生费
-//		String[] result=new String[2];
-//		//把Double[]转为String[]
-//		for(int i=0;i<2;i++) {
-//			result[i]=recieve[i]+"";
-//		}
-//		return result;
-//	}
-	
 	public double[] houseInfo(String houseID) {
 		double[] recieve=new double[2];
 		String[] content= {"area","room"};	//house表要查询的内容
@@ -48,18 +38,6 @@ public class chargeStaff extends Staff {
 		}
 		return recieve;
 	}
-	
-//	//将收费金额信息插入bill表
-//	private void insertIntoBill(String houseID) {		
-//		String[] recieve=charge(houseID);
-//		long l=System.currentTimeMillis();
-//		Date date=new Date(l);
-//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//		String time = dateFormat.format(date);
-//		String[] content= {recieve[0],recieve[1],recieve[2],recieve[3],time,houseID,"unordered"};
-//		String[] column= {"property","clean","water","electricity","time_stamp","house_id","state"};
-//		insert.insertSet(USER, PASS, "bill", column, content);
-//	}
 	
 	public String getUser() {return USER;}
 	public String getPass() {return PASS;}
