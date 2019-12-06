@@ -96,50 +96,6 @@ public class myTable {
 	             fireTableCellUpdated(rowIndex, columnIndex);
 			 }
 		});
-		final TableModel tableModel = table.getModel();
-		tableModel.addTableModelListener(new TableModelListener() {
-			
-			@Override
-			public void tableChanged(TableModelEvent e) {
-				// TODO Auto-generated method stub
-				//获取第一个和最后一个被改变的行（只改变了一行，则两者相同）
-				int firstRow=e.getFirstRow();
-				int lastRow=e.getLastRow();
-				
-				//获取被改变的列
-				int column=e.getColumn();
-				
-				//获取时间的类型
-				int type=e.getType();
-				
-				//针对现有数据的更改，更新其他单元格数据
-				if(type==TableModelEvent.UPDATE) {
-					//只处理数量、金额这两行的更改
-					if(column<2 || column>3) {
-						return;
-					}
-					//遍历每一个修改的行，数量更改后同时更新金额
-					for(int row=firstRow;row<lastRow;row++) {
-						Object numberObj=tableModel.getValueAt(row, 2);
-						
-						double number=0;
-						try {
-							number=Double.parseDouble(""+numberObj);
-						}
-						catch(Exception ex) {
-							ex.printStackTrace();
-						}
-						double money=0;
-						if(row==2)
-							money=number*0.7;
-						else if(row==3)
-							money=number*0.8;
-						tableModel.setValueAt(money, row, 3);
-					}
-				}
-				
-			}
-		});		
 		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
 	    tcr.setHorizontalAlignment(SwingConstants.CENTER);
 	    table.setDefaultRenderer(Object.class, tcr);
