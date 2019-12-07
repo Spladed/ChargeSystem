@@ -127,7 +127,9 @@ public class charge {
 					}
 					//遍历每一个修改的行，数量更改后同时更新金额
 					for(int row=firstRow;row<=lastRow;row++) {
-						Object numberObj=tableModel.getValueAt(row, 2);						
+						Object numberObj=tableModel.getValueAt(row, 2);
+						if((numberObj+"").length()==0)
+							break;
 						double number=0;
 						double money=0;
 						try {
@@ -180,6 +182,7 @@ public class charge {
 				String[] content= {property,clean,water,electricity,time,houseID,state,cs.getID()};
 				insert.insertSet(cs.getUser(), cs.getPass(), "bill", column, content);
 				isInsert=true;
+				chargeSuccess.showFailedWindow(jf);
 			}
 		});
         panel.add(btn1);
@@ -192,11 +195,9 @@ public class charge {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(isInsert) {
-					// 获取屏幕尺寸
-			        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 			        // 创建需要截取的矩形区域
-			        Rectangle rect = new Rectangle(0, 0, screenSize.width, screenSize.height);
+			        Rectangle rect = new Rectangle(jf.getX()+27, jf.getY()+55, 465, 385);
 
 			        // 截屏操作
 			        BufferedImage bufImage = null;
@@ -228,6 +229,6 @@ public class charge {
 	}
 
 	public static void main(String[] args) {
-		
+		display("A0101", "张全蛋", new chargeStaff("001"));
 	}
 }

@@ -22,7 +22,7 @@ public class chargeSuccess {
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setVerticalAlignment(SwingConstants.CENTER);
 		
-		JButton btn=new JButton("确定");
+		JButton btn=myButton.normalButton("确定");
 		btn.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
