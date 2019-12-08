@@ -46,30 +46,6 @@ INSERT INTO `bill` VALUES ('100','40','4.2','81.6','2019-11-01','A0101','未缴'
 /*!40000 ALTER TABLE `bill` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `charge`
---
-
-DROP TABLE IF EXISTS `charge`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `charge` (
-  `property` float DEFAULT NULL,
-  `clean` float DEFAULT NULL,
-  `water` float DEFAULT NULL,
-  `electricity` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `charge`
---
-
-LOCK TABLES `charge` WRITE;
-/*!40000 ALTER TABLE `charge` DISABLE KEYS */;
-INSERT INTO `charge` VALUES (1,10,0.7,0.8);
-/*!40000 ALTER TABLE `charge` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `department`
