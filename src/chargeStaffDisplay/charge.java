@@ -35,7 +35,7 @@ public class charge {
 	private static boolean isInsert=false;
 	
 	public static void display(String houseID,String ownerName,chargeStaff cs) {
-		JFrame jf = new JFrame("≤‚ ‘¥∞ø⁄");
+		JFrame jf = new JFrame(" ’∑—");
         jf.setSize(520, 520);
         jf.setLocationRelativeTo(null);
         jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -67,7 +67,6 @@ public class Main {
 	    	btn.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					System.out.println(houseID);
 					charge.display(houseID,ownerName,cs);
 				}
 			});
