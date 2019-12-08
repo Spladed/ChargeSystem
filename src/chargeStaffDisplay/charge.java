@@ -1,12 +1,9 @@
 package chargeStaffDisplay;
 
 import java.awt.AWTException;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Robot;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -15,7 +12,6 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -146,6 +142,7 @@ public class charge {
 						tableModel.setValueAt(reservedDigits.getDoubleNumber(money), row, 3);						
 					}
 				}
+				//判断电费和水费都已经进行了信息填入
 				if(table.getValueAt(2, 3).getClass().getName().equals("java.lang.Double") && table.getValueAt(3, 3).getClass().getName().equals("java.lang.Double")) {
 					double totalMoney=(Double)table.getValueAt(0, 3)+(Double)table.getValueAt(1, 3)+(Double)table.getValueAt(2, 3)+(Double)table.getValueAt(3, 3);
 					//限制小数后1位
@@ -193,12 +190,10 @@ public class charge {
         btn2.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				//确定已经填好了信息才能进行截图操作
 				if(isInsert) {
-
 			        // 创建需要截取的矩形区域
 			        Rectangle rect = new Rectangle(jf.getX()+27, jf.getY()+55, 465, 385);
-
 			        // 截屏操作
 			        BufferedImage bufImage = null;
 					try {
@@ -208,7 +203,6 @@ public class charge {
 						e1.printStackTrace();
 					}
 					String imageName=houseID+time;
-
 			        // 保存截取的图片
 			        try {
 						ImageIO.write(bufImage, "PNG", new File(imageName+".png"));
