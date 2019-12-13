@@ -28,12 +28,12 @@ public class JTableExamples {
         f.setTitle("JTable Example"); //$NON-NLS-1$
 
         // Initializing the JTable
+        //public TableColumn(int modelIndex,int width,TableCellRenderer cellRenderer,TableCellEditor cellEditor)
         j = new JTable(new JTableModel());
         j.addColumn(new TableColumn(0));
         j.addColumn(new TableColumn(1));
         j.addColumn(new TableColumn(2, 200, new ButtonRenderer(), new ButtonEditor()));
         j.addColumn(new TableColumn(3, 200, new ButtonRenderer(), new ButtonEditor()));
-
         // adding it to JScrollPane
         JScrollPane sp = new JScrollPane(j);
         f.add(sp);
@@ -48,6 +48,7 @@ public class JTableExamples {
         new JTableExamples();
     }
 
+    //实现TableCellRenderer接口
     private class ButtonRenderer implements TableCellRenderer {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -57,6 +58,7 @@ public class JTableExamples {
         }
     }
 
+    //继承DefaultCellEditor
     private class ButtonEditor extends DefaultCellEditor {
         private static final long serialVersionUID = -6546334664166791132L;
 

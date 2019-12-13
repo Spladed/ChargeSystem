@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 import javax.swing.table.AbstractTableModel;
 
-
+//ºÃ≥–AbstractTableModel£¨÷ÿ–¥getValueAt()°¢getColumnClass()∫ÕisCellEditable()
 public class JTableModel extends AbstractTableModel{
 		
 	private static final long serialVersionUID = 1L;

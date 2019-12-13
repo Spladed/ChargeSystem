@@ -37,7 +37,7 @@ public class Display {
 				if(logIn.in(user, pass)) {
 					if(judgingPosition.judge(user).equals("M")) {
 						//managerDisplay.Main.Display(new Manager(user));
-						}
+					}
 					else if(judgingPosition.judge(user).equals("S"))
 						chargeStaffDisplay.Main.Display(new chargeStaff(user));
 					jf.dispose();

@@ -14,6 +14,7 @@ public class update {
 			String sql;
 			for(int i=0;i<column.length;i++) {
 				sql="update "+table+" set "+column[i]+"="+content[i]+" where "+sign[0]+"="+"\""+sign[1]+"\"";
+				System.out.println(sql);
 				stmt.execute(sql);
 			}
 			stmt.close();
@@ -42,7 +43,7 @@ public class update {
 	}
 	public static void main(String[] args) {
 		String[] col= {"phone"};
-		String[] content= {"3333333"};
+		String[] content= {"777"};
 		String[] sign= {"staff_id","001"};
 		updateSet("manager","manager","staff",col,content,sign);
 	}

@@ -18,6 +18,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -179,7 +180,7 @@ public class charge {
 				String[] content= {property,clean,water,electricity,time,houseID,state,cs.getID()};
 				insert.insertSet(cs.getUser(), cs.getPass(), "bill", column, content);
 				isInsert=true;
-				chargeSuccess.showFailedWindow(jf);
+				JOptionPane.showMessageDialog(null, "收费成功");
 			}
 		});
         panel.add(btn1);
@@ -206,10 +207,14 @@ public class charge {
 			        // 保存截取的图片
 			        try {
 						ImageIO.write(bufImage, "PNG", new File(imageName+".png"));
+						JOptionPane.showMessageDialog(null, "保存完成");
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "未收费，无法打印收费单");
 				}
 			}
         });
