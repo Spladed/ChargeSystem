@@ -9,6 +9,7 @@ import staff.*;
 
 public class Display {
 	public static void main(String[] args) {
+
 		JFrame jf=new JFrame("µÇÂ¼");
 		
 		jf.setSize(300, 300);
@@ -34,8 +35,9 @@ public class Display {
 				String user=jtf.getText();
 				String pass=new String(jpf.getPassword());
 				if(logIn.in(user, pass)) {
-					if(judgingPosition.judge(user).equals("M"))
-						managerDisplay.Main.Display(new Manager(user));
+					if(judgingPosition.judge(user).equals("M")) {
+						//managerDisplay.Main.Display(new Manager(user));
+						}
 					else if(judgingPosition.judge(user).equals("S"))
 						chargeStaffDisplay.Main.Display(new chargeStaff(user));
 					jf.dispose();

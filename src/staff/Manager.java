@@ -12,6 +12,12 @@ public class Manager extends Staff{
 		super(staffID);
 	}
 	
+	public String getName() {
+		String[] selectInfo= {"staff_id","\""+staffID+"\""};
+		String name=(String)select.selectSet(USER, PASS, "staff", "staff_name", selectInfo);
+		return name;
+	}
+	
 	public String getDepartmentID() {
 		String[] selectInfo= {"staff_id","\""+staffID+"\""}; 
 		String departmentID=(String)select.selectSet(USER, PASS, "staff", "department_id", selectInfo);
