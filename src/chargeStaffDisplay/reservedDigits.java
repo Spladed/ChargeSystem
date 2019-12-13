@@ -2,6 +2,7 @@ package chargeStaffDisplay;
 
 import java.math.BigDecimal;
 
+//保留一位小数
 public class reservedDigits {
 	public static double getDoubleNumber(double money) { 
 		BigDecimal b=new BigDecimal(money);

@@ -41,10 +41,10 @@ public class update {
 			}
 		}
 	}
-	public static void main(String[] args) {
-		String[] col= {"phone"};
-		String[] content= {"777"};
-		String[] sign= {"staff_id","001"};
-		updateSet("manager","manager","staff",col,content,sign);
-	}
+//	public static void main(String[] args) {
+//		String[] col= {"phone","pwd"};
+//		String[] content= {"777","'asdf'"};
+//		String[] sign= {"staff_id","123"};
+//		updateSet("manager","manager","staff",col,content,sign);
+//	}
 }

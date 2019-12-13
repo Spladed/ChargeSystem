@@ -2,7 +2,6 @@ package staff;
 
 import db.*;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class chargeStaff extends Staff {
@@ -43,11 +42,4 @@ public class chargeStaff extends Staff {
 	public String getPass() {return PASS;}
 	public String getID() {return staffID;}
 	
-	public static void main(String[] args) {
-//		chargeStaff cs=new chargeStaff("001");
-//		for(String s:cs.Charge("A0101"))
-//			System.out.println(s);
-//		for(String s:cs.houseInfo("A0101"))
-//			System.out.println(s);
-	}
 }

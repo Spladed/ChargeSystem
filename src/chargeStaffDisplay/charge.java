@@ -227,7 +227,7 @@ public class charge {
 
 	}
 
-	public static void main(String[] args) {
-		display("A0101", "张全蛋", new chargeStaff("001"));
-	}
+//	public static void main(String[] args) {
+//		display("A0101", "张全蛋", new chargeStaff("001"));
+//	}
 }

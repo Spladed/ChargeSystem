@@ -38,7 +38,7 @@ public class delete {
 		}
 	}
 	
-	public static void main(String[] args) {
-		deleteSet("manager", "manager", "staff", "staff_id", "007");
-	}
+//	public static void main(String[] args) {
+//		deleteSet("manager", "manager", "staff", "staff_id", "007");
+//	}
 }

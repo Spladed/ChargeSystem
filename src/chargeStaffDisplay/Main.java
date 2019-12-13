@@ -180,8 +180,8 @@ public class Main {
         jf.pack();
         jf.setVisible(true);
 	}
-	public static void main(String[] args) {
-		chargeStaff cs=new chargeStaff("011");
-		Display(cs);
-	}
+//	public static void main(String[] args) {
+//		chargeStaff cs=new chargeStaff("011");
+//		Display(cs);
+//	}
 }

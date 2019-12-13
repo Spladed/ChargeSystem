@@ -38,9 +38,9 @@ public class insert {
 		}
 	}
 	
-	public static void main(String[] args) {
-		String[] column= {"staff_id","staff_name","birthday","gender","address","phone","department_id","job","pwd"};
-		String[] content= {"007","Ğ»°²âù","1999-06-02","F","´ºÌï»¨»¨Ó×ÖÉÔ°","123333","003","M","xieanyi"};
-		insertSet("manager", "manager", "staff", column, content);
-	}
+//	public static void main(String[] args) {
+//		String[] column= {"staff_id","staff_name","birthday","gender","address","phone","department_id","job","pwd"};
+//		String[] content= {"007","Ğ»°²âù","1999-06-02","F","´ºÌï»¨»¨Ó×ÖÉÔ°","123333","003","M","xieanyi"};
+//		insertSet("manager", "manager", "staff", column, content);
+//	}
 }

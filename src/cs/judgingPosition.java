@@ -11,12 +11,10 @@ public class judgingPosition {
 		String[] selectInfo= {"staff_id","\""+user+"\""};
 		String m=(String)select.selectSet(USER, PASS, "staff", "job", selectInfo);		
 		return m;
-	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		String str=judge("011");
-		System.out.println(str);
-	}
-
+	}	
+//	public static void main(String[] args) {
+//		// TODO Auto-generated method stub
+//		String str=judge("011");
+//		System.out.println(str);
+//	}
 }

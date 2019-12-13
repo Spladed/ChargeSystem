@@ -128,12 +128,12 @@ public class select {
 		return result;
 	}
 	
-	public static void main(String[] args) {
-		String[] content= {"area","room"};
-		String[] selectHouseInfo= {"house_id","A1608"};
-		List<HashMap<String,Object>> recieve=(List<HashMap<String, Object>>) selectSet("staff","staff","house","*",null);
-		for(HashMap<String,Object> m:recieve) {
-			System.out.println(m);		
-		}
-	}
+//	public static void main(String[] args) {
+//		String[] content= {"area","room"};
+//		String[] selectHouseInfo= {"house_id","A1608"};
+//		List<HashMap<String,Object>> recieve=(List<HashMap<String, Object>>) selectSet("staff","staff","house","*",null);
+//		for(HashMap<String,Object> m:recieve) {
+//			System.out.println(m);		
+//		}
+//	}
 }

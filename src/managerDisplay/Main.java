@@ -21,7 +21,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import db.update;
+import cs.Display;
 import staff.Manager;
 
 public class Main {
@@ -34,11 +34,12 @@ Manager m=new Manager("011");
 	static JButton viewButton2 = myButton.normalButton("删除");
 	
 	static DefaultTableModel model = null;
+	static Manager manager=null;
 	
 	//绘制表格
-	public static void makeTable(Manager m) {
+	public static void makeTable() {
 		String[] columnNames = { "员工号", "姓名", "联系电话", "性别", "操作"}; 
-		Object[][] data = DAL.getStaffInfo(m.getUser(), m.getPass(), m.getDepartmentID());
+		Object[][] data = DAO.getStaffInfo(manager.getUser(), manager.getPass(), manager.getDepartmentID());
 		model = new DefaultTableModel(data, columnNames) {};
 		table = new JTable(model);
 		table.setRowHeight(40);
@@ -51,11 +52,12 @@ Manager m=new Manager("011");
 	
 	//主界面
 	public static void Display(Manager m) {
+		manager=m;
 			
 		JFrame jf=new JFrame("员工管理系统");
 		jf.setSize(800, 650);
 		jf.setLocationRelativeTo(null);
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         //主面板
         JPanel mainPanel=new JPanel(null);
@@ -72,7 +74,7 @@ Manager m=new Manager("011");
 	    //上部面板的位置
 	    abovePanel.setLocation(20, 20);
 	    {
-	    	String[] content= {"经理：",m.getName(),"部门",m.getDepartmentID()};
+	    	String[] content= {"经理：",m.getName(),"部门：",m.getDepartmentID()};
 	    	int x=0;
 	    	for(int i=0;i<content.length;i++) {
 	    		//利用循环构造Label
@@ -85,12 +87,12 @@ Manager m=new Manager("011");
 	    	JButton btn=myButton.normalButton("退出登录");
 	    	btn.setLocation(650, 0);
 	    	//退出登录按钮的事件
-	    	btn.addActionListener(new ActionListener() {
-				
+	    	btn.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					
+					Display.main(null);
+					jf.dispose();
 				}
 			});
 	    	abovePanel.add(btn);
@@ -103,49 +105,64 @@ Manager m=new Manager("011");
 	    belowPanel.setSize(abovePanel.getWidth(),500);
 	    //下部面板的位置
 	    belowPanel.setLocation(20, 80);
-	    {	 
-	    	makeTable(m);
-	        // 把 表格 放到 滚动面板 中（表头将自动添加到滚动面板顶部）
-	        JScrollPane scrollPane = new JScrollPane(table);
-	        //滚动面板的位置
-	        scrollPane.setLocation(10, 10);
-	        //滚动面板的大小
-	        scrollPane.setSize(belowPanel.getWidth()-20, belowPanel.getHeight()-100);
-	        // 设置table内容居中
-	        DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
-		    tcr.setHorizontalAlignment(SwingConstants.CENTER);
-		    table.setDefaultRenderer(Object.class, tcr);
-		    //设置滚动面板的边框
-		    scrollPane.setBorder(BorderFactory.createTitledBorder("员工信息"));
-	        belowPanel.add(scrollPane);
+	    	 
+	    makeTable();
+	    // 设置table内容居中
+	    DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+		tcr.setHorizontalAlignment(SwingConstants.CENTER);
+		table.setDefaultRenderer(Object.class, tcr);
+	    // 把 表格 放到 滚动面板 中（表头将自动添加到滚动面板顶部）
+	    JScrollPane scrollPane = new JScrollPane(table);
+	    //滚动面板的位置
+	    scrollPane.setLocation(10, 10);
+	    //滚动面板的大小
+	    scrollPane.setSize(belowPanel.getWidth()-20, belowPanel.getHeight()-100);	    
+		//设置滚动面板的边框
+		scrollPane.setBorder(BorderFactory.createTitledBorder("员工信息"));
+	    belowPanel.add(scrollPane);
 	        
-	        //添加按钮
-	        JButton btn1=myButton.borderButton("添加");
-	        btn1.setLocation(520, 425);
-	        btn1.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					addStaff.add();
-				}
-			});
+	    //添加按钮
+	    JButton btn1=myButton.borderButton("添加");
+	    btn1.setLocation(520, 425);
+	    btn1.addActionListener(new ActionListener() {				
+	    	@Override
+	    	public void actionPerformed(ActionEvent e) {
+	    		// TODO Auto-generated method stub
+	    		addStaff.add(m);
+			}
+		});
 	        
-	        //刷新按钮
-	        JButton btn2=myButton.borderButton("刷新");
-	        btn2.setLocation(630, 425);
-	        btn2.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-			});
+	    //刷新按钮
+	    JButton btn2=myButton.borderButton("刷新");
+	    btn2.setLocation(630, 425);
+	    btn2.addActionListener(new ActionListener() {				
+	    	@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+	    		belowPanel.removeAll();
+	    		makeTable();
+	    	    // 设置table内容居中
+	    	    DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+	    		tcr.setHorizontalAlignment(SwingConstants.CENTER);
+	    		table.setDefaultRenderer(Object.class, tcr);
+	    	    // 把 表格 放到 滚动面板 中（表头将自动添加到滚动面板顶部）
+	    	    JScrollPane scrollPane = new JScrollPane(table);
+	    	    //滚动面板的位置
+	    	    scrollPane.setLocation(10, 10);
+	    	    //滚动面板的大小
+	    	    scrollPane.setSize(belowPanel.getWidth()-20, belowPanel.getHeight()-100);	    
+	    		//设置滚动面板的边框
+	    		scrollPane.setBorder(BorderFactory.createTitledBorder("员工信息"));
+	    	    belowPanel.add(scrollPane);
+	    	    belowPanel.add(btn1);
+	    	    belowPanel.add(btn2);
+	    	    belowPanel.updateUI();
+			}
+	    });
 	        
-	        belowPanel.add(btn1);
-	        belowPanel.add(btn2);
-	    }
+	    belowPanel.add(btn1);
+	    belowPanel.add(btn2);
+	    
 	    belowPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 	    
 	    mainPanel.add(abovePanel);
@@ -173,7 +190,7 @@ Manager m=new Manager("011");
 				public void actionPerformed(ActionEvent arg0) {					
 					int i = table.getSelectedRow();
 					String s = (String)model.getValueAt(i, 0);					
-					updateStaff.update(s);
+					updateStaff.update(manager,s);
 				}
 			});
 			
@@ -181,8 +198,11 @@ Manager m=new Manager("011");
 			viewButton2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					int i = table.getSelectedRow();
+					String s = (String)model.getValueAt(i, 0);
+					deleteStaff.delete(manager,s);
 					DefaultTableModel  model  =  (DefaultTableModel) table.getModel(); 
 					model.removeRow(i);
+					JOptionPane.showMessageDialog(null, "已删除");
 				}
 			});
 		}
@@ -206,7 +226,7 @@ Manager m=new Manager("011");
 		}
 	}
 	
-	public static void main(String[] args) {
-		Display(new Manager("011"));
-	}
+//	public static void main(String[] args) {
+//		Display(new Manager("011"));
+//	}
 }
