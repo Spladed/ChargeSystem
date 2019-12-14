@@ -18,6 +18,7 @@ public class updateStaff {
 	public static void update(Manager m,String staffID) {
 		JFrame jf = new JFrame("测试窗口");
 		jf.setSize(455, 500);
+		jf.setResizable(false);
         jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         // 创建内容面板，使用边界布局

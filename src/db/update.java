@@ -14,7 +14,6 @@ public class update {
 			String sql;
 			for(int i=0;i<column.length;i++) {
 				sql="update "+table+" set "+column[i]+"="+content[i]+" where "+sign[0]+"="+"\""+sign[1]+"\"";
-				System.out.println(sql);
 				stmt.execute(sql);
 			}
 			stmt.close();

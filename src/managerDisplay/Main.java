@@ -27,17 +27,22 @@ import staff.Manager;
 public class Main {
 Manager m=new Manager("011");
 	
-	static JTable table = null;	
+	private JTable table = null;	
 	
-	static JButton viewButton1 = myButton.normalButton("修改");
+	private JButton viewButton1 = myButton.normalButton("修改");
 	
-	static JButton viewButton2 = myButton.normalButton("删除");
+	private JButton viewButton2 = myButton.normalButton("删除");
 	
-	static DefaultTableModel model = null;
-	static Manager manager=null;
+	private DefaultTableModel model = null;
+	private Manager manager=null;
+	
+	public Main(Manager m){
+		this.manager=m;
+		Display(m);
+	}
 	
 	//绘制表格
-	public static void makeTable() {
+	public void makeTable() {
 		String[] columnNames = { "员工号", "姓名", "联系电话", "性别", "操作"}; 
 		Object[][] data = DAO.getStaffInfo(manager.getUser(), manager.getPass(), manager.getDepartmentID());
 		model = new DefaultTableModel(data, columnNames) {};
@@ -51,11 +56,12 @@ Manager m=new Manager("011");
 	}
 	
 	//主界面
-	public static void Display(Manager m) {
+	public void Display(Manager m) {
 		manager=m;
 			
 		JFrame jf=new JFrame("员工管理系统");
 		jf.setSize(800, 650);
+		jf.setResizable(false);
 		jf.setLocationRelativeTo(null);
         jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
@@ -139,24 +145,8 @@ Manager m=new Manager("011");
 	    	@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-	    		belowPanel.removeAll();
-	    		makeTable();
-	    	    // 设置table内容居中
-	    	    DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
-	    		tcr.setHorizontalAlignment(SwingConstants.CENTER);
-	    		table.setDefaultRenderer(Object.class, tcr);
-	    	    // 把 表格 放到 滚动面板 中（表头将自动添加到滚动面板顶部）
-	    	    JScrollPane scrollPane = new JScrollPane(table);
-	    	    //滚动面板的位置
-	    	    scrollPane.setLocation(10, 10);
-	    	    //滚动面板的大小
-	    	    scrollPane.setSize(belowPanel.getWidth()-20, belowPanel.getHeight()-100);	    
-	    		//设置滚动面板的边框
-	    		scrollPane.setBorder(BorderFactory.createTitledBorder("员工信息"));
-	    	    belowPanel.add(scrollPane);
-	    	    belowPanel.add(btn1);
-	    	    belowPanel.add(btn2);
-	    	    belowPanel.updateUI();
+	    		new Main(m);
+	    		jf.dispose();
 			}
 	    });
 	        
@@ -174,7 +164,7 @@ Manager m=new Manager("011");
 	}
 	
 	//设置表格中按钮的事件
-	static class ActionPanelEditorRenderer extends AbstractCellEditor implements TableCellRenderer, TableCellEditor {
+	class ActionPanelEditorRenderer extends AbstractCellEditor implements TableCellRenderer, TableCellEditor {
 
 		JPanel panel  = new JPanel(new FlowLayout());
 
@@ -189,7 +179,7 @@ Manager m=new Manager("011");
 				@Override
 				public void actionPerformed(ActionEvent arg0) {					
 					int i = table.getSelectedRow();
-					String s = (String)model.getValueAt(i, 0);					
+					String s = (String)model.getValueAt(i, 0);
 					updateStaff.update(manager,s);
 				}
 			});
@@ -227,6 +217,6 @@ Manager m=new Manager("011");
 	}
 	
 //	public static void main(String[] args) {
-//		Display(new Manager("011"));
+//		new Main(new Manager("011"));
 //	}
 }

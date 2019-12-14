@@ -17,6 +17,7 @@ public class addStaff {
 	public static void add(Manager m) {
 		JFrame jf = new JFrame("测试窗口");
 		jf.setSize(455, 500);
+		jf.setResizable(false);
         jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         // 创建内容面板，使用边界布局
